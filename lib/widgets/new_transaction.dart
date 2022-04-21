@@ -1,18 +1,27 @@
 import 'package:flutter/material.dart';
 
-class NewTrancaction extends StatelessWidget {
-  final titleController = TextEditingController();
-  final amountController = TextEditingController();
+class NewTrancaction extends StatefulWidget {
   final Function addTx;
 
   NewTrancaction(this.addTx);
+
+  @override
+  State<NewTrancaction> createState() => _NewTrancactionState();
+}
+
+class _NewTrancactionState extends State<NewTrancaction> {
+  final titleController = TextEditingController();
+
+  final amountController = TextEditingController();
+
   void submitData() {
     final enteredTitle = titleController.text;
     final enteredAmount = double.parse(amountController.text);
     if (enteredTitle.isEmpty || enteredAmount <= 0) {
       return;
     }
-    addTx(enteredTitle, enteredAmount);
+    widget.addTx(enteredTitle, enteredAmount);
+    Navigator.of(context).pop();
   }
 
   @override
